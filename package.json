@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/themodernjavascript/react-scroll/issues"
   },
-  "homepage": "https://github.com/themodernjavascript/react-scroll#readme",
+  "homepage": "https://github.com/themodernjavascript/react-scroll",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
@@ -27,5 +27,8 @@
     "webpack": "^4.16.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
+  },
+  "dependencies": {
+    "create-react-class": "^15.6.3"
   }
 }
