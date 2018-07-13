@@ -2,18 +2,26 @@ const path = require('path');
 
 module.exports = { 
   mode: "production", 
-  entry: path.resolve(__dirname, 'src/index'), // an entry point indicates which module webpack should use to begin building 
+  // an entry point indicates which 
+  // module webpack should use to begin building 
+  entry: path.resolve(__dirname, 'src/index'), 
   output: { 
-    path: path.resolve(__dirname, 'dist'), // output directory 
-    filename: 'react-scroller.js', // the name of output
+    // output directory
+    path: path.resolve(__dirname, 'dist'), 
+    // the name of output
+    filename: 'react-scroller.js', 
     library: 'reactScroller', 
     libraryTarget: 'umd', 
   },
   module: {
     rules: [
       { 
-        test: /\.jsx?$/, // test property identifies which file or files should be transformed
-        use: ['babel-loader'], // use property indicates which loader should be used to do the transforming
+        // test property identifies which file 
+        // or files should be transformed
+        test: /\.jsx?$/, 
+        // use property indicates which 
+        // loader should be used to do the transforming
+        use: ['babel-loader'], 
         exclude: /node_modules/ 
       }, 
     ], 

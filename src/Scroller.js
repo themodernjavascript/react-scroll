@@ -1,30 +1,32 @@
 import React, { Component } from 'react';
+import createReactClass from 'create-react-class';
 
-export default class Scroller extends Component {
-  constructor() {
-    super();
-    this.state = {
-      data: [], 
-      requestSent: false
-    }
-  }
+const Scroller = createReactClass({
+  getInitialState: function() {
+    return (
+      {
+        data: [], 
+        requestSent: false
+      }
+    );
+  },
 
-  componentDidMount() {
+  componentDidMount: function() {
     window.addEventListener('scroll', this.handleOnScroll);
 
     this.initData();
-  }
+  },
 
-  componentWillUnmount() {
+  componentWillUnmount: function() {
     window.removeEventListener('scroll', this.handleOnScroll);
-  }
+  },
 
-  initData() {
+  initData: function() {
     var data = this.loadData(this.state.data.length, 100);
     this.setState({data: data});
-  }
+  },
 
-  loadData(startKey, counter) {
+  loadData: function(startKey, counter) {
     var i = 0;
     var data = [];
     for (i = 0; i < counter; i++) {
@@ -33,9 +35,9 @@ export default class Scroller extends Component {
     }
 
     return data;
-  }
+  },
 
-  querySearchResult() {
+  querySearchResult: function() {
     if (this.state.requestSent) {
       return;
     }
@@ -44,13 +46,13 @@ export default class Scroller extends Component {
     setTimeout(this.query, 1000);
 
     this.setState({requestSent: true});
-  }
+  },
 
-  query() {
+  query: function() {
     var data = this.loadData(this.state.data.length, 20);
     var newData = this.state.data.concat(data);
     this.setState({data: newData, requestSent: false});
-  }  
+  },  
 
   isAtBottom() {
     var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
@@ -58,23 +60,36 @@ export default class Scroller extends Component {
     var clientHeight = document.documentElement.clientHeight || window.innerHeight;
     var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
     return scrolledToBottom;
-  }
+  },
 
-  handleOnScroll() {
+  handleOnScroll: function() {
     if (this.isAtBottom()) {
       this.querySearchResult();
     }
-  }
+  },
 
-  render() {
+  render: function() {
     return (
       <div>
         <div className="data-container">
           {this.state.data}
         </div>
-        
+        {(() => {
+          if (this.state.requestSent) {
+            return(
+              <div className="data-loading">
+                <i className="fa fa-refresh fa-spin">Refresh...</i>
+              </div>
+            );
+          } else {
+            return(
+              <div className="data-loading"></div>
+            );
+          }
+        })()}
       </div>
     );
   }
-}
+});
 
+export default Scroller;
